@@ -50,3 +50,5 @@ WHERE authors = 'NOT A BOOK';
 -- weird, so it found two instances but they have average_rating below 4 which would have been left out of my VIEW prior to removing NOT A BOOK records --
 -- so the records I deleted in my VIEW are not showing up in the TABLE so something is amiss --
 
+-- I am simply typing this to make my branch file different than my main file as I am unable to create a pull request when MAIN and BRANCH are identical --
+
