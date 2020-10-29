@@ -52,3 +52,33 @@ WHERE authors = 'NOT A BOOK';
 
 -- I am simply typing this to make my branch file different than my main file as I am unable to create a pull request when MAIN and BRANCH are identical --
 
+SELECT * FROM booksWIZARD;
+
+USE Tuesday_Exercise;
+
+SELECT * FROM booksWIZARD;
+
+TRUNCATE TABLE booksWIZARD;
+
+DROP TABLE booksWIZARD;
+
+-- I successfully truncated the table which removed all the records and then dropped the table entirely --
+-- I was then able to recreate the full table from scratch using an import task --
+
+SELECT * FROM booksHighlyRated
+ORDER BY average_rating DESC;
+
+DELETE FROM booksHighlyRated
+WHERE authors = 'NOT A BOOK';
+
+SELECT * FROM booksWIZARD
+ORDER BY average_rating DESC;
+
+SELECT * FROM booksWIZARD
+WHERE authors = 'NOT A BOOK';
+
+-- I tried this twice and YES, deleting a record from a VIEW deletes it from the base TABLE!!!! --
+-- There appears to be confirmation of this online as well --
+
+
+
