@@ -61,6 +61,42 @@ WHERE num_pages = 503
 -- note in the above that the results show the results from both SELECT statements but put them in columns labeled only by the first SELECT --
 
 
+-- Trying INTERSECT --
+
+SELECT * FROM booksWIZARD
+WHERE average_rating BETWEEN 2.00 AND 4.00
+INTERSECT
+SELECT * FROM WIZARDbooks
+WHERE average_rating BETWEEN 3.00 AND 5.00
+
+-- If the two tables have a different set of columns that don't all fully match, you must be more specific than * to get it to work --
+
+SELECT title, average_rating FROM booksWIZARD
+WHERE average_rating BETWEEN 2.00 AND 4.00
+INTERSECT
+SELECT title, average_rating FROM booksCLIPPED
+WHERE average_rating BETWEEN 3.00 AND 5.00 
+
+SELECT * FROM booksCLIPPED
+
+-- Trying EXCEPT --
+
+SELECT * FROM booksWIZARD
+WHERE average_rating BETWEEN 2.00 AND 4.00
+EXCEPT
+SELECT * FROM WIZARDbooks
+WHERE average_rating BETWEEN 3.00 AND 5.00
+
+
+SELECT title, average_rating FROM booksWIZARD
+WHERE average_rating BETWEEN 2.00 AND 4.00
+EXCEPT
+SELECT title, average_rating FROM booksCLIPPED
+WHERE average_rating BETWEEN 3.00 AND 5.00 
+
+-- neither of these are working as expected and I don't know why --
+
+
 
 
 
