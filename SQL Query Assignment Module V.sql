@@ -129,11 +129,72 @@ DROP TABLE gradeLetters;
 
 -- At this point, I do believe all four tables are 3NF compliant --
 -- 1NF: I removed repeated groups and addressed redundant records --
--- 2NF: Any identified partial dependencies were calculated columns and therefore not needed in the DB --
+-- 2NF: Any identified partial dependencies are computed columns and therefore not needed in the DB --
 -- 3NF: The final grade was identified as a transient dependency since it is dependent on the average marks which are then dependent on the students --
 -- NOTE: Partial and transient dependencies in this example were somewhat irrelevant because we are dealing with a single course rather than a bunch of courses --
 
+
 -- I will now create a consolidated table summarizing each students results --
+-- I need two user-defined functions to do the calculations that will define each of my computed columns in the combined results table --
+
+-- Create user-defined function to calculate marksTotal and marksAverage from the exams and assignments tables --
+
+CREATE FUNCTION ufn_marksCount (@student INT)
+RETURNS INT
+AS
+BEGIN
+DECLARE @marksCount INT
+SELECT @marksCount = COUNT(studentID)
+FROM examTable
+WHERE studentID = @student
+RETURN @marksCount
+END;
+
+CREATE FUNCTION ufn_marksSum (@student INT)
+RETURNS FLOAT
+AS
+BEGIN
+DECLARE @marksSum FLOAT
+SELECT @marksSum = SUM(examMark)
+FROM examTable
+WHERE studentID = @student
+RETURN @marksSum
+END;
+
+CREATE FUNCTION ufn_marksAverage (@student INT)
+RETURNS DEC(2,2)
+AS
+BEGIN
+DECLARE @marksAverage DEC(2,2)
+SELECT @marksAverage = dbo.ufn_marksSum(studentID) / dbo.ufn_marksCount(studentID)
+FROM examTable
+WHERE studentID = @student
+RETURN @marksAverage
+END;
+
+
+
+
+
+SELECT dbo.ufn_marksCount (99966) AS testResult;
+SELECT dbo.ufn_marksSum (99966) AS testResult;
+SELECT dbo.ufn_marksAverage (99966) AS testResult;
+
+DROP FUNCTION ufn_TotalAverage;
+DROP FUNCTION ufn_marksCount;
+DROP FUNCTION ufn_marksSum;
+
+
+-- Creating Combined Summary Table --
+
+SELECT studentID, firstName, lastName
+FROM studentTable
+INNER JOIN
+
+
+
+
+
 
 
 
